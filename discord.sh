@@ -1,7 +1,7 @@
 #!/bin/bash
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source "$SCRIPT_DIR/env.sh"
-AREACODE_REGEX='^\+1\d+'
+AREACODE_REGEX='^\+1.+'
 
 if [[ "$SMS_1_NUMBER" =~ $AREACODE_REGEX ]]
 then
