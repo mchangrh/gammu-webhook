@@ -8,5 +8,5 @@ FULLMSG=$(get_full_message)
 
 curl \
   -H "Content-Type: application/json" \
-  -d "{\"username\": \"${AUTHOR}\", \"content\": \"${FULLMSG}\"}" \
-  "$DISCORD_URL"
+  -d "{\"version\":\"v2\",\"username\":\"${AUTHOR}\",\"text\":\"${FULLMSG}\"}" \
+  "$HOOKSHOT_URL"

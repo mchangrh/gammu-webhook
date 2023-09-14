@@ -1,16 +1,12 @@
 #!/bin/bash
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source "$SCRIPT_DIR/env.sh"
-AREACODE_REGEX='^\+1.+'
+source "$SCRIPT_DIR/parse.sh"
 
-if [[ "$SMS_1_NUMBER" =~ $AREACODE_REGEX ]]
-then
-  AUTHOR="${SMS_1_NUMBER:0:2} ${SMS_1_NUMBER:2:3} ${SMS_1_NUMBER:5:3} ${SMS_1_NUMBER:8:4}"
-else
-  AUTHOR=$SMS_1_NUMBER
-fi
+AUTHOR=$(get_author)
+FULLMSG=$(get_full_message)
 
 curl \
   -H "Content-Type: application/json" \
-  -d "{\"@context\":\"https://schema.org/extensions\", \"@type\":\"MessageCard\",\"title\":\"${AUTHOR}\",\"text\":\"${SMS_1_TEXT}\"}" \
-  "$WEBHOOK_URL"
+  -d "{\"@context\":\"https://schema.org/extensions\", \"@type\":\"MessageCard\",\"title\":\"${AUTHOR}\",\"text\":\"${FULLMSG}\"}" \
+  "$TEAMS_URL"
